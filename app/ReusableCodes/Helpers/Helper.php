@@ -52,7 +52,7 @@ class Helper
     public static function custom_app_name()
     {
 
-        $name = "Legibra" ." ". config('app.name', 'Monitor');
+        $name = "Legibra Hosting" ." ". config('app.name', 'Monitor');
         return $name;
         
     }

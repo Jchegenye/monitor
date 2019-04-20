@@ -4,20 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
+    {{-- CSRF Token --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ Helper::custom_app_name() }} - @yield('title')</title>
+    {{-- Title Page--}}
+    <title>{{ Helper::custom_app_name() }} | @yield('title')</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    @include('layouts.inner.css')
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -68,6 +62,7 @@
                             </li>
                         @endguest
                     </ul>
+                    
                 </div>
             </div>
         </nav>
@@ -76,5 +71,8 @@
             @yield('content')
         </main>
     </div>
+
+    @include('layouts.inner.js')
+
 </body>
 </html>
