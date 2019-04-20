@@ -2,8 +2,9 @@
 
     <div class="sidebar-header">
         <a class="navbar-brand" href="{{ url('/') }}">
-        <h3>Legibra {{ config('app.name', 'Monitor') }}</h3>
-        <strong>BS</strong>
+            <h3>{{ Helper::custom_app_name() }}</h3>
+            <strong>{{ Helper::abbreviate( Helper::custom_app_name() ) }}</strong>
+        </a>
     </div>
 
     <ul class="list-unstyled components">

@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- Title Page--}}
-    <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
+    <title>{{ Helper::custom_app_name() }} - @yield('title')</title>
 
     {{--Favicon--}}
     <link rel="shortcut icon" type="image/ico" href="{{ asset('favicon.ico')}}" />
