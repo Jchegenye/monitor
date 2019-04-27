@@ -15,13 +15,15 @@ class User extends Eloquent  implements Authenticatable,CanResetPasswordContract
     
     use Notifiable,AuthenticableTrait,CanResetPassword;
 
+    protected $connection = 'mongodb';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'notify_status', 'profile_status'
     ];
 
     /**
@@ -41,4 +43,12 @@ class User extends Eloquent  implements Authenticatable,CanResetPasswordContract
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The connection name for the model.
+     *
+     * @var string
+     */
+    protected $collection = "users";
+
 }

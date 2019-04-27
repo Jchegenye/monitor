@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\InitializeMonitoringWebsites::class,
+        Commands\DownTimeWebsitesChecker::class
     ];
 
     /**
@@ -24,6 +25,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('initialize:monitoring-websites')
+            ->everyMinute()
+            ->runInBackground()
+            ->timezone('Africa/Nairobi');
+
+            // $schedule->command('monitoring:down-websites')
+            //     ->everyMinute()
+            //     ->runInBackground()
+            //     ->timezone('Africa/Nairobi');
+            
+            
         // $schedule->command('inspire')
         //          ->hourly();
     }

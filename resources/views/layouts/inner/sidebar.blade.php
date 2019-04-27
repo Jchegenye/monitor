@@ -2,7 +2,7 @@
 
     <div class="sidebar-header">
         <a class="navbar-brand" href="{{ url('/') }}">
-            <strong>{{ Helper::abbreviate( Helper::custom_app_name() ) }}</strong>
+            <strong>{{ CommonHelper::abbreviate( CommonHelper::custom_app_name() ) }}</strong>
 
             @php
                 $company_avater_url;
@@ -14,8 +14,8 @@
             @endphp
             <img class="img-fluid rounded-3 w-25 pb-2" src="{{URL::asset('/images/'. $company_avater_url)}}" alt="Company Avater">
 
-            <p class="">{{ Helper::custom_app_name() }}</p>
-            <span class="">({{ Helper::abbreviate( Helper::custom_app_name() ) }})</span>
+            <p class="">{{ CommonHelper::custom_app_name() }}</p>
+            <span class="">({{ CommonHelper::abbreviate( CommonHelper::custom_app_name() ) }})</span>
         </a>
     </div>
 
@@ -39,7 +39,10 @@
             </a>
             <ul class="collapse list-unstyled inner-menu show" id="uptime">
                 <li>
-                    <a href="#"><i class="far fa-window-maximize"></i>Websites</a>
+                    <a href="{{ url('dashboard/monitoring/uptime/websites') }}"><i class="far fa-window-maximize"></i>Websites</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fab fa-expeditedssl"></i>SSL certificate</a>
                 </li>
                 <li>
                     <a href="#"><i class="far fa-paper-plane"></i>Emails</a>
@@ -76,7 +79,7 @@
             </a>
             <ul class="collapse list-unstyled inner-menu" id="pageSubmenu">
                 <li>
-                    <a href="#"><i class="fas fa-user-md"></i>Account</a>
+                    <a href="{{ url('/dashboard/profile/settings') }}"><i class="fas fa-user-md"></i>Account</a>
                 </li>
                 <li>
                     <a href="#"><i class="fas fa-bell"></i>Notifications</a>

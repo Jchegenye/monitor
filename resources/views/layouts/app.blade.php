@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- Title Page--}}
-    <title>{{ Helper::custom_app_name() }} | @yield('title')</title>
+    <title>{{ CommonHelper::custom_app_name() }} | @yield('title')</title>
 
     @include('layouts.inner.css')
 
@@ -18,7 +18,7 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ Helper::custom_app_name() }}
+                    {{ CommonHelper::custom_app_name() }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -66,6 +66,8 @@
                 </div>
             </div>
         </nav>
+
+        @include('myflashalert::message')
 
         <main class="py-4">
             @yield('content')

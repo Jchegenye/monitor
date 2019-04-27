@@ -9,7 +9,7 @@
         </button>
 
         <a class="mobile navbar-brand d-lg-none align-items-center" href="{{ url('/') }}">
-            <strong>{{ Helper::abbreviate( Helper::custom_app_name() ) }}</strong>
+            <strong>{{ CommonHelper::abbreviate( CommonHelper::custom_app_name() ) }}</strong>
         </a>
 
         <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +50,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown">
 
-                                <a class="dropdown-item" href="#"><i class="fa fa-user"></i> My Profile</a>
+                                <a class="dropdown-item" href="{{ url('/dashboard/profile/settings') }}"><i class="fa fa-user"></i> My Profile</a>
     
                                 <a class="dropdown-item" href="#"><i class="fa fa-bell"></i> Notifications <span class="badge badge-pill badge-danger">13</span></a>
         

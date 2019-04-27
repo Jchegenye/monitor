@@ -17,4 +17,38 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Profile completion
+Route::middleware(['auth'])->group(function () {
+    
+    Route::get('dashboard/profile/settings', 'Dashboard\Account\UserController@completeProfile')
+        ->name('dashboard.account.profile');
+
+});
+
+//Route::group(['middleware' => ['auth', 'user.profile']], function() {
+    Route::middleware(['auth', 'user.profile'])->group(function () {
+
+        Route::get('/home', 'HomeController@index')->name('home');
+
+        Route::prefix('dashboard')->group(function () {
+
+            Route::namespace('Dashboard')->group(function () {
+
+                //monitoring
+                Route::prefix('monitoring')->group(function () {
+                    Route::get('uptime/websites', [
+                        'uses' => 'Monitoring\Uptime\WebsitesController@index',
+                        'as' => 'uptime.websites'
+                    ]);
+                });
+
+                //reports
+
+                //general
+
+            });
+
+        });
+
+    });
+//});

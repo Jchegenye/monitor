@@ -7,7 +7,7 @@ namespace Monitor\ReusableCodes\Helpers;
  * @link https://github.com/jchegenye
  * 
  */
-class Helper
+class CommonHelper
 {
 
     /**

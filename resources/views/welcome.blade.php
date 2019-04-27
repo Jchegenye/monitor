@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ Helper::custom_app_name() }}</title>
+        <title>{{ CommonHelper::custom_app_name() }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md ">
-                    {{ Helper::custom_app_name() }}
+                    {{ CommonHelper::custom_app_name() }}
                 </div>
             </div>
         </div>

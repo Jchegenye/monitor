@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Africa/Nairobi',
 
     /*
     |--------------------------------------------------------------------------
@@ -234,9 +234,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         /*
-         * External Class Aliases...
+         * Internal Custom Class Aliases...
          */
-        'Helper' => Monitor\ReusableCodes\Helpers\Helper::class,
+        'CommonHelper' => Monitor\ReusableCodes\Helpers\CommonHelper::class
 
     ],
 

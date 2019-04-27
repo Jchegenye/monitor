@@ -63,9 +63,32 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $notifyStatus = [
+            'via-email' => [
+                'websites' => [
+                    'down-websites' => "active",
+                    'up-websites' => "active"
+                ]
+            ],
+            'via-sms' => [
+                'websites' => [
+                    'down-websites' => "active",
+                    'up-websites' => "active"
+                ]
+            ],
+            'via-slack' => [
+                'websites' => [
+                    'down-websites' => "active",
+                    'up-websites' => "active"
+                ]
+            ]
+        ];
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'notify_status' => $notifyStatus,
+            'profile_status' => (int)0,
             'password' => Hash::make($data['password']),
         ]);
     }
