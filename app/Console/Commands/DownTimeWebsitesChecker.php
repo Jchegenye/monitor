@@ -3,7 +3,11 @@
 namespace Monitor\Console\Commands;
 
 use Illuminate\Console\Command;
+use Notification;
+use Monitor\Notifications\Websites\DownTimeNotifier;
+
 use Monitor\Model\WebsitesMonitor;
+use Monitor\ReusableCodes\Helpers\CommonHelper;
 use Monitor\User;
 use Carbon\Carbon;
 use DB;
@@ -22,7 +26,7 @@ class DownTimeWebsitesChecker extends Command
      *
      * @var string
      */
-    protected $description = 'This command will keep checking down websites every minute from our database.';
+    protected $description = 'This command will keep checking down websites every minute from our database & nofify users.';
 
     /**
      * Create a new command instance.
@@ -42,16 +46,21 @@ class DownTimeWebsitesChecker extends Command
     public function handle()
     {
         
-        $websites = WebsitesMonitor::where('success', false)->whereNull('mail_status')->get();
-        foreach ((object)$websites as $key_1 => $val_1) 
+        $users = User::where('profile_status', (int)1)->select('email','name')->get();
+        $websites = WebsitesMonitor::where('success', false)->whereNull('mail_status')->select('uri','site_info','updated_at')->get();
+        
+        foreach ((object)$websites as $key_1 => $details)
         {
             
             if($websites){
-                //get user data & website data including downtime using "updated_at"
 
-                //send mail
+                foreach ($users as $key => $user) {
+                    Notification::send($user, new DownTimeNotifier($details,$user));
 
-                //update/insert mail_status value to "mailed" and insertOrUpdate "downtime" using "updated_at"
+                    //update/insert mail_status value to "mailed" and insertOrUpdate "downtime" using "updated_at"
+
+                }
+                
             }
 
         }

@@ -7,8 +7,20 @@ use Monitor\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-    public function completeProfile()
+    public function completeProfile(Request $request)
     {
+        //dd($request->user());
         return view('dashboard.account.profile');
+    }
+
+    /**
+     * Update the user's profile.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function update(Request $request)
+    {
+        // $request->user() returns an instance of the authenticated user...
     }
 }

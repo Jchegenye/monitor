@@ -4,7 +4,9 @@ namespace Monitor;
 
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-use Illuminate\Notifications\Notifiable; //Send emails
+//use Illuminate\Notifications\Notifiable; 
+use Monitor\ReusableCodes\LaraOverrides\Notifications\Notifiable;
+
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -50,5 +52,16 @@ class User extends Eloquent  implements Authenticatable,CanResetPasswordContract
      * @var string
      */
     protected $collection = "users";
+
+    /**
+     * Route notifications for the Slack channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return string
+     */
+    public function routeNotificationForSlack($notification)
+    {
+        return env('SLACK_WEBHOOK_URL');
+    }
 
 }
