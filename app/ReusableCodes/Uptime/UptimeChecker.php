@@ -244,11 +244,11 @@ class UptimeChecker
                     'monitor_type' => 'HTTP(S)',
                     'site_url' => 'https://wapipay.com',
                 ),
-                // 'https://legibratest.com' => array(
-                //     'site_name' => 'Legibra Test Server',
-                //     'monitor_type' => 'HTTP(S)',
-                //     'site_url' => 'https://legibratest.com',
-                // ),
+                'https://legibratest.com' => array(
+                    'site_name' => 'Legibra Test Server',
+                    'monitor_type' => 'HTTP(S)',
+                    'site_url' => 'https://legibratest.com',
+                ),
             );
 
             $query = array();

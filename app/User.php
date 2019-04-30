@@ -61,7 +61,7 @@ class User extends Eloquent  implements Authenticatable,CanResetPasswordContract
      */
     public function routeNotificationForSlack($notification)
     {
-        return env('SLACK_WEBHOOK_URL');
+        return config('app.slack_webhook_url');
     }
 
 }
