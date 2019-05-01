@@ -30,10 +30,10 @@ class Kernel extends ConsoleKernel
             ->runInBackground()
             ->timezone('Africa/Nairobi');
 
-            // $schedule->command('monitoring:down-websites')
-            //     ->everyMinute()
-            //     ->runInBackground()
-            //     ->timezone('Africa/Nairobi');
+            $schedule->command('monitoring:down-websites')
+                ->everyMinute()
+                ->runInBackground()
+                ->timezone('Africa/Nairobi');
             
             
         // $schedule->command('inspire')

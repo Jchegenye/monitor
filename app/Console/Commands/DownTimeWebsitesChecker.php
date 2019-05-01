@@ -62,10 +62,7 @@ class DownTimeWebsitesChecker extends Command
 
                         foreach ($users as $key => $user) {
                             
-                            
                             Notification::send($user, new DownTimeNotifier($details,$user));
-        
-                            //update/insert mail_status value to "mailed" and insertOrUpdate "downtime" using "updated_at"
         
                         }
                     

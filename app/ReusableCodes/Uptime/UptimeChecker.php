@@ -249,6 +249,11 @@ class UptimeChecker
                     'monitor_type' => 'HTTP(S)',
                     'site_url' => 'https://legibratest.com',
                 ),
+                'http://www.skydivediani.com1' => array(
+                    'site_name' => 'SkyDive Diani',
+                    'monitor_type' => 'HTTP(S)',
+                    'site_url' => 'http://www.skydivediani.com1',
+                ),
             );
 
             $query = array();
