@@ -48,7 +48,7 @@
                             }
                         @endphp
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown">
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown">
 
                                 <a class="dropdown-item" href="{{ url('/dashboard/profile/settings') }}"><i class="fa fa-user"></i> My Profile</a>
     
