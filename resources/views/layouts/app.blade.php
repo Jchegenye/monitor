@@ -10,7 +10,7 @@
     {{-- Title Page--}}
     <title>{{ CommonHelper::custom_app_name() }} | @yield('title')</title>
 
-    @include('layouts.inner.css')
+    @include('layouts.inner.js-css')
 
 </head>
 <body>
@@ -68,13 +68,12 @@
         </nav>
 
         @include('myflashalert::message')
+        @include('layouts.inner.notification')
 
         <main class="py-4">
             @yield('content')
         </main>
     </div>
-
-    @include('layouts.inner.js')
 
 </body>
 </html>

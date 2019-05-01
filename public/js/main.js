@@ -12,4 +12,7 @@ $(document).ready(function () {
 
         });
 
+        //Boostrap 4 Toaster Notify
+        $('.toast').toast({delay:10000, animation:true}).toast('show');
+
 });

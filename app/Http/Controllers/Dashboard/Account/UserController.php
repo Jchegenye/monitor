@@ -10,6 +10,7 @@ class UserController extends Controller
     public function completeProfile(Request $request)
     {
         //dd($request->user());
+        session()->put('success','Welcome'.' '.auth()->user()->name);
         return view('dashboard.account.profile');
     }
 

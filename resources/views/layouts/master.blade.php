@@ -10,12 +10,12 @@
     {{-- Title Page--}}
     <title>{{ CommonHelper::custom_app_name() }} | @yield('title')</title>
 
-    {{-- css--}}
-    @include('layouts.inner.css')
+    {{-- js-css--}}
+    @include('layouts.inner.js-css')
 
 </head>
 
-<body class="wrapper">
+    <body class="wrapper">
 
         {{-- Sidebar --}}
         @section('sidebar')
@@ -28,39 +28,13 @@
             @section('top-menu')
                 @include('layouts.inner.top-menu')
             @show
-
+            
             @include('myflashalert::message')
-
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            @if (session('warning'))
-                <div class="alert alert-warning">
-                    {{ session('warning') }}
-                </div>
-            @endif
-
-            @if (session('info'))
-                <div class="alert alert-info">
-                    {{ session('info') }}
-                </div>
-            @endif
-
-            @if (session('danger'))
-                <div class="alert alert-danger">
-                    {{ session('danger') }}
-                </div>
-            @endif
+            @include('layouts.inner.notification')
 
             @yield('content')
             
         </div>
 
-    {{-- js--}}
-    @include('layouts.inner.js')
-
-</body>
+    </body>
 </html>
