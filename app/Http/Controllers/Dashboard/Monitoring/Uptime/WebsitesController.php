@@ -9,6 +9,8 @@ use Monitor\ReusableCodes\Uptime\UptimeChecker;
 use Monitor\Model\WebsitesMonitor;
 use DB;
 
+use Monitor\Http\Resources\PostCollection;
+
 class WebsitesController extends Controller
 {
 
@@ -29,6 +31,7 @@ class WebsitesController extends Controller
      */
     public function index()
     { 
+
         return view('dashboard.monitoring.uptime.websites');
     }
 

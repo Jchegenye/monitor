@@ -1,0 +1,149 @@
+<?php
+
+namespace Monitor\Console\Commands;
+
+
+use Monitor\ReusableCodes\Uptime\UptimeChecker;
+use Monitor\Model\WebsitesMonitor;
+use Carbon\Carbon;
+use Illuminate\Console\Command;
+
+class InitializeMonitoringWebsites extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'monitoring:initialize-websites';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'This command will initialize monitoring of websites by updating & storing of new website data in our database.';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        
+        // Retrieve all stored uptime data
+        $websites = WebsitesMonitor::all();
+
+        //Get all uptime data (array)
+        $checker = new UptimeChecker();
+
+        // $curlQuery = array();
+        // foreach((array)$checker->results() as $arrKey1 => $arr){
+        //     $curlQuery[] = $arr;
+        // }
+        // $curlData = $curlQuery;
+        //var_export($curlData);
+
+        // $dbQuery = array();
+        // foreach ((array)$websites as $key1 => $val1) {
+        //     foreach ((array)$val1 as $key2 => $val2) {
+        //         $dbQuery[] = parse_url($val2['uri'], PHP_URL_HOST);
+        //     }
+        // }
+        // $dbData = $dbQuery;
+        // //var_export($dbData);
+
+        
+
+
+                    
+
+                            
+
+                                
+                                foreach ((array)$websites as $key1 => $val1) {
+                                    foreach ((array)$val1 as $key2 => $val2) {
+
+                                        foreach((object)$checker->results() as $arr){
+                                        WebsitesMonitor::where('uri', $arr['host'])
+                                            ->where('uri', $val2['uri'])
+                                            ->update(['success' => $arr['success']]);
+                                    }
+                                }
+
+                                //var_export($ll->toArray());
+
+                                // foreach ((array)$websites as $key1 => $val1) {
+                                //     foreach ((array)$val1 as $key2 => $val2) { 
+
+                                        // $rr = WebsitesMonitor::where('uri', '=' , $arr['host'])->first();
+                                        // if($rr){
+
+                                           // $rr = WebsitesMonitor::where('uri', '=' , $arr['host'])->first();
+                                            
+                                            //if($rr){
+
+                                                // $rr->success = $arr['success'];
+                                                // $rr->status = $arr['status'];
+                                                // $rr->message = $arr['message'];
+                                                // $rr->transfer_time = $arr['transfer_time'];
+
+                                                                    // WebsitesMonitor::where('uri', $arr['host'])->update([
+                                                                    //     'success' => $arr['success'],
+                                                                    //     'status' => $arr['status'],
+                                                                    //     'message' => $arr['message'],
+                                                                    //     'transfer_time' => $arr['transfer_time']
+                                                                    // ]);
+
+                                                    //$rr->save();
+                                            //}
+                                        //}
+
+                                //Curl Data
+                                //foreach ((object)$arr as $curlKey1 => $curlVal1) {
+
+                                    
+                                    
+                    
+                                    //foreach ((object)$curlVal1 as $curlKey2 => $curlVal2) {
+
+                                        
+
+                                        // WebsitesMonitor::where('uri', $val2['uri'])->update([
+                                        //     'success' => $curlVal2
+                                        // ]);
+
+                                    //}
+                                //}
+
+
+                    // else{
+
+                    //     $website = new WebsitesMonitor();
+                    //     foreach ((array)$arr as $key1 => $value) {
+                    //         $website->$key1 = $value;
+                    //         $website->site_info = $arr['site_info'];
+                    //     }
+                    //     $website->save();
+
+                    // }
+                    
+            //     }
+
+            // }
+
+        }
+
+    }
+}

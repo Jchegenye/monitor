@@ -38,13 +38,17 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12"><hr class=""></div>
+            <div class="col-md-12"><hr class="">
+            
+                <posts-component></posts-component>
+                <add-post></add-post>
+
+            </div>
         </div>
 
     </div>
 
     <!-- Modal (Add New) -->
-    @include('dashboard.monitoring.uptime.modals.websites.add-new-website')
     @include('dashboard.monitoring.uptime.modals.websites.import-website')
 
 @endsection

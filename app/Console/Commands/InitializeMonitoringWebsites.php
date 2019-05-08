@@ -15,7 +15,7 @@ class InitializeMonitoringWebsites extends Command
      *
      * @var string
      */
-    protected $signature = 'initialize:monitoring-websites';
+    protected $signature = 'monitoring:initialize-websites';
 
     /**
      * The console command description.
@@ -41,61 +41,23 @@ class InitializeMonitoringWebsites extends Command
      */
     public function handle()
     {
-        
-        // Retrieve all stored uptime data
-        $websites = WebsitesMonitor::all();
 
         //Get all uptime data (array)
         $checker = new UptimeChecker();
-            
-        if($websites->isEmpty())
-        {
-            //store a new websites data
-            foreach((array)$checker->results() as $arr){
-                $website = new WebsitesMonitor();
-                foreach ((array)$arr as $key1 => $value) {
-                    $website->$key1 = $value;
-                    $website->site_info = $arr['site_info'];
-                }
-                $website->save();
-            }
-            echo "Monitoring initialized!";
-        }
-        else{
 
-            foreach((object)$checker->results() as $arr){
-                
-                foreach ((object)$arr as $key1 => $value1) {
+            foreach((object)$checker->results() as $arr)
+            {
 
-                    foreach ((object)$value1 as $key => $value2) {
-
-                        //Update existing websites data, else store a new websites data
-                        $website = WebsitesMonitor::where('uri',"=", $arr['uri'])->first();
-                        if($website){
-
-                            WebsitesMonitor::where('uri', $arr['uri'])->update([
-                                $key1 => $value2,
-                                'site_info' => $arr['site_info']
-                            ]);
-
-                        }else{
-
-                            $website = new WebsitesMonitor();
-                            foreach ((array)$arr as $key1 => $value) {
-                                $website->$key1 = $value;
-                                $website->site_info = $arr['site_info'];
-                            }
-                            $website->save();
-
-                        }
-                        
-                    }
-
-                }
+                WebsitesMonitor::where('_id', $arr['domain_id'])
+                    ->update([
+                        'uri'  => $arr['host'],
+                        'success' => $arr['success'],
+                        'status' => $arr['status'],
+                        'message' => $arr['message'],
+                        'transfer_time' => $arr['transfer_time'],
+                    ]);
 
             }
-            
-        }
 
     }
 }

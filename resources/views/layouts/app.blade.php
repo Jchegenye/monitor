@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {{-- CSRF Token --}}
+    <meta charset="UTF-8">
+    <meta name="robots" content="nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="robots" content="noindex,nofollow"/> 
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- Title Page--}}
@@ -74,6 +76,6 @@
             @yield('content')
         </main>
     </div>
-
+<script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>
 </body>
 </html>
