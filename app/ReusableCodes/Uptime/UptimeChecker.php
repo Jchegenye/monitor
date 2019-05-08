@@ -65,10 +65,6 @@ class UptimeChecker
     public $message;
 
     public $site_info;
-    public $uptime;
-    public $downtime;
-    public $log_time;
-    public $mail_status;
     public $domain_id;
     private $host = '';
 
@@ -161,26 +157,9 @@ class UptimeChecker
             $this->message = $response->getReasonPhrase();
 
             $this->domain_id = $domain_id;
-            //extra info
-            
-                // foreach ($websiteData as $site_key => $value)
-                // {
-                //     if($site_key == $url)
-                //     {
-                //         $this->site_info = $value;
-                //     }
-                // }
-            // $this->log_time = Carbon::now();
-            //$this->mail_status = "not mailed";
-            
-            // foreach (json_decode($websites) as $key_1 => $val_1) 
-            // {
-            //     foreach ((object)$val_1->curl_getinfo as $key_2 => $val_2) 
-            //     {
-            //         $this->uptime = Carbon::now();
-            //     }
-            // }
+
             return $this->report();
+
         } catch (\Exception $e) {
             
             $this->success = false;
@@ -188,24 +167,7 @@ class UptimeChecker
             $this->message = trim($e->getMessage());
 
             $this->domain_id = $domain_id;
-            //extra info
-                // foreach ($websiteData as $site_key => $value)
-                // {
-                //     if($site_key == $url)
-                //     {
-                //         $this->site_info = $value;
-                //     }
-                // }
-            // $this->log_time = Carbon::now();
-            //$this->mail_status = "not mailed";
 
-            // foreach (json_decode($websites) as $key_1 => $val_1) 
-            // {
-            //     foreach ((object)$val_1->curl_getinfo as $key_2 => $val_2) 
-            //     {
-            //         $this->downtime = Carbon::now();
-            //     }
-            // }
             return $this->report();
         }
 
@@ -225,11 +187,6 @@ class UptimeChecker
             'message' => $this->message,
             'transfer_time' => $this->transferTime,
             'domain_id' => $this->domain_id,
-            //'site_info' => $this->site_info,
-            // 'log_time' => $this->log_time,
-            //'mail_status' => $this->mail_status,
-            // 'uptime' => $this->uptime,
-            // 'downtime' => $this->downtime,
         ];
     }
     /**
