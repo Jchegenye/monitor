@@ -88,7 +88,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'notify_status' => $notifyStatus,
-            'profile_status' => (int)0,
+            'profile_status' => (int)1,
             'password' => Hash::make($data['password']),
         ]);
     }
