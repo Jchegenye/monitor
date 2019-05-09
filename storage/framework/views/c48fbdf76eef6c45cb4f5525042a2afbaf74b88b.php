@@ -1,0 +1,1 @@
+<?php /**PATH /media/jchegenye/legibra/var/www/laravel-projects/monitor/resources/views/layouts/inner/js.blade.php ENDPATH**/ ?>
