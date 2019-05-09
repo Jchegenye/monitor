@@ -300,7 +300,7 @@ __webpack_require__.r(__webpack_exports__);
         page = 1;
       }
 
-      this.$http.get('http://monitor.test/api/websites?page=' + page).then(function (response) {
+      this.$http.get('/api/websites?page=' + page).then(function (response) {
         _this.posts = response.data.data;
         _this.laravelData = response.data;
         _this.pagenumber = page; //console.log(this.laravelData.data);
@@ -309,7 +309,7 @@ __webpack_require__.r(__webpack_exports__);
     editPost: function editPost(postid) {
       var _this2 = this;
 
-      this.$http.get('http://monitor.test/api/websites/' + postid).then(function (data) {
+      this.$http.get('/api/websites/' + postid).then(function (data) {
         _this2.post.site_name = data.data.data.site_name;
         _this2.post.site_url = data.data.data.site_url;
         _this2.post.check_type = data.data.data.check_type;
@@ -319,7 +319,7 @@ __webpack_require__.r(__webpack_exports__);
     updatePost: function updatePost() {
       var _this3 = this;
 
-      this.$http.put('http://monitor.test/api/websites/' + this.id, {
+      this.$http.put('/api/websites/' + this.id, {
         'uri': this.post.site_url,
         'site_name': this.post.site_name,
         'site_url': this.post.site_url,
@@ -346,7 +346,7 @@ __webpack_require__.r(__webpack_exports__);
     deletePost: function deletePost() {
       var _this4 = this;
 
-      this.$http["delete"]('http://monitor.test/api/websites/' + this.id).then(function (data) {
+      this.$http["delete"]('/api/websites/' + this.id).then(function (data) {
         _this4.succmsg = false;
         ;
         var self = _this4;
@@ -466,7 +466,7 @@ __webpack_require__.r(__webpack_exports__);
     addPost: function addPost() {
       var _this = this;
 
-      this.$http.post('http://monitor.test/api/websites', {
+      this.$http.post('/api/websites', {
         'site_name': this.post.site_name,
         'site_url': this.post.site_url,
         'check_type': this.post.check_type
