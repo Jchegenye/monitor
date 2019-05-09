@@ -36,7 +36,7 @@ class DownTimeNotifier extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail', 'slack'];
     }
 
     /**

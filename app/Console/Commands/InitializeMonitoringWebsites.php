@@ -45,19 +45,19 @@ class InitializeMonitoringWebsites extends Command
         //Get all uptime data (array)
         $checker = new UptimeChecker();
 
-            foreach((object)$checker->results() as $arr)
-            {
+        foreach((object)$checker->results() as $arr)
+        {
 
-                WebsitesMonitor::where('_id', $arr['domain_id'])
-                    ->update([
-                        'uri'  => $arr['host'],
-                        'success' => $arr['success'],
-                        'status' => $arr['status'],
-                        'message' => $arr['message'],
-                        'transfer_time' => $arr['transfer_time'],
-                    ]);
+            WebsitesMonitor::where('_id', $arr['domain_id'])
+                ->update([
+                    'uri'  => $arr['host'],
+                    'success' => $arr['success'],
+                    'status' => $arr['status'],
+                    'message' => $arr['message'],
+                    'transfer_time' => $arr['transfer_time'],
+                ]);
 
-            }
+        }
 
     }
 }
