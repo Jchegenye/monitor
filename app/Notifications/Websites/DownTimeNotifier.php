@@ -36,7 +36,7 @@ class DownTimeNotifier extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail','database','slack'];
+        return ['database', 'mail', 'slack'];
     }
 
     /**
@@ -77,7 +77,6 @@ class DownTimeNotifier extends Notification
         return [
             'website_id' => $this->details->id, //website ids
             'user_id' => $this->user->id,
-            'monitoring' => 'website',
             'status' => 'down',
             'downtime' => $this->details->updated_at,
             'message' => 'Whoops! '.strtoupper($this->details->site_info['site_name']).' is DOWN since '.$this->details->updated_at.' '.$this->details->site_info['site_url']

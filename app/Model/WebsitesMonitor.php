@@ -13,8 +13,11 @@ class WebsitesMonitor extends Eloquent
      *
      * @var array
      */
-    protected $fillable = ['site_info'];
+    protected $fillable = ['success','status', 'message', 'transfer_time'];
 
+    // protected $casts = [
+    //     'site_info' => 'array'
+    // ];
 
     /**
      * The connection name for the model.
@@ -23,8 +26,17 @@ class WebsitesMonitor extends Eloquent
      */
     protected $collection = "uptime";
 
-    // protected $casts = [
-    //     'site_info' => 'array'
-    // ];
+    //protected $appends = ['createdDate'];
+
+
+    public function user()
+    {
+    return $this->belongsTo(\Monitor\User::class);
+    }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
 
 }

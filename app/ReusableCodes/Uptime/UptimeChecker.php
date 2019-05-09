@@ -65,10 +65,8 @@ class UptimeChecker
     public $message;
 
     public $site_info;
-    public $uptime;
-    public $downtime;
-    public $log_time;
-    public $mail_status;
+    public $domain_id;
+    private $host = '';
 
     /**
      * The transfer time in seconds.
@@ -139,64 +137,37 @@ class UptimeChecker
      * @param string $url
      * @return array
      */
-    public function check(string $url, array $websiteData)
+    public function check(string $url, $domain_id)
     {
 
         $websites = WebsitesMonitor::all();
-        
+
         try {
 
             $response = $this->client->request('GET', $url, [
                 'on_stats' => function (TransferStats $stats) {
                     $this->uri = $stats->getEffectiveUri();
                     $this->transferTime = $stats->getTransferTime();
+                    $parse = parse_url($this->uri, PHP_URL_HOST);
+                    $this->host = $parse;
                 }
             ]);
             $this->success = in_array($response->getStatusCode(), $this->status_codes['success']) ? true : false;
             $this->status = $response->getStatusCode();
             $this->message = $response->getReasonPhrase();
-            //extra info
-            foreach ($websiteData as $site_key => $value)
-            {
-                if($site_key == $url)
-                {
-                    $this->site_info = $value;
-                }
-            }
-            // $this->log_time = Carbon::now();
-            //$this->mail_status = "not mailed";
-            
-            // foreach (json_decode($websites) as $key_1 => $val_1) 
-            // {
-            //     foreach ((object)$val_1->curl_getinfo as $key_2 => $val_2) 
-            //     {
-            //         $this->uptime = Carbon::now();
-            //     }
-            // }
+
+            $this->domain_id = $domain_id;
+
             return $this->report();
+
         } catch (\Exception $e) {
             
             $this->success = false;
             $this->status = $e->getCode();
             $this->message = trim($e->getMessage());
-            //extra info
-            foreach ($websiteData as $site_key => $value)
-            {
-                if($site_key == $url)
-                {
-                    $this->site_info = $value;
-                }
-            }
-            // $this->log_time = Carbon::now();
-            //$this->mail_status = "not mailed";
 
-            // foreach (json_decode($websites) as $key_1 => $val_1) 
-            // {
-            //     foreach ((object)$val_1->curl_getinfo as $key_2 => $val_2) 
-            //     {
-            //         $this->downtime = Carbon::now();
-            //     }
-            // }
+            $this->domain_id = $domain_id;
+
             return $this->report();
         }
 
@@ -206,19 +177,16 @@ class UptimeChecker
      *
      * @return array
      */
-    private function report()
+    public function report()
     {
         return [
-            'uri' => (string) $this->uri,
+            'uri' => (string)$this->uri,
+            'host' => $this->host,
             'success' => $this->success,
             'status' => $this->status,
             'message' => $this->message,
             'transfer_time' => $this->transferTime,
-            'site_info' => $this->site_info,
-            // 'log_time' => $this->log_time,
-            //'mail_status' => $this->mail_status,
-            // 'uptime' => $this->uptime,
-            // 'downtime' => $this->downtime,
+            'domain_id' => $this->domain_id,
         ];
     }
     /**
@@ -228,40 +196,54 @@ class UptimeChecker
      */
     public function results(){
 
-            $websiteData = array(
-                'https://legibra.com' => array(
-                    'site_name' => 'Legibra Holdings LTD',
-                    'monitor_type' => 'HTTP(S)',
-                    'site_url' => 'https://legibra.com',
-                ),
-                'http://jchegenye.me' => array(
-                    'site_name' => 'Jackson Chegenye1',
-                    'monitor_type' => 'HTTP(S)',
-                    'site_url' => 'http://jchegenye.me',
-                ),
-                'https://wapipay.com' => array(
-                    'site_name' => 'Wapipay',
-                    'monitor_type' => 'HTTP(S)',
-                    'site_url' => 'https://wapipay.com',
-                ),
-                'https://legibratest.com' => array(
-                    'site_name' => 'Legibra Test Server',
-                    'monitor_type' => 'HTTP(S)',
-                    'site_url' => 'https://legibratest.com',
-                ),
-                'http://www.skydivediani.com1' => array(
-                    'site_name' => 'SkyDive Diani',
-                    'monitor_type' => 'HTTP(S)',
-                    'site_url' => 'http://www.skydivediani.com1',
-                ),
-            );
+        //Fetch from db
+
+            // $websiteData = array(
+            //     'https://legibra.com' => array(
+            //         'site_name' => 'Legibra Holdings LTD',
+            //         'check_type' => 'website',
+            //         'site_url' => 'https://legibra.com',
+            //     ),
+            //     'http://jchegenye.me' => array(
+            //         'site_name' => 'Jackson Chegenye1',
+            //         'check_type' => 'website',
+            //         'site_url' => 'http://jchegenye.me',
+            //     ),
+            //     'https://wapipay.com' => array(
+            //         'site_name' => 'Wapipay',
+            //         'check_type' => 'website',
+            //         'site_url' => 'https://wapipay.com',
+            //     ),
+            //     'https://legibratest.com' => array(
+            //         'site_name' => 'Legibra Test Server',
+            //         'check_type' => 'HTTP(S)',
+            //         'site_url' => 'https://legibratest.com',
+            //     ),
+            //     'http://www.skydivediani.com1' => array(
+            //         'site_name' => 'SkyDive Diani',
+            //         'check_type' => 'HTTP(S)',
+            //         'site_url' => 'http://www.skydivediani.com1',
+            //     ),
+            // );
+
+            // $query = array();
+            // foreach ($websiteData as $key => $data)
+            // {
+            //     $query[] = $this->check($key,$websiteData);
+            // }
+            // $data = $query;
+
+            $websiteData = WebsitesMonitor::all();
 
             $query = array();
-            foreach ($websiteData as $key => $data)
-            {
-                $query[] = $this->check($key,$websiteData);
-            }
+                foreach ($websiteData as $key => $val1)
+                {
+                    $domainId = $val1->id;
+                    $query[] = $this->check($val1->site_info['site_url'], $domainId);
+                }
             $data = $query;
+
+            //dd($data);
 
         return $data;
 
