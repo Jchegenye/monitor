@@ -85,7 +85,7 @@
         },
         methods: {
             addPost() {
-                this.$http.post('http://monitor.test/api/websites',{
+                this.$http.post('/api/websites',{
                         'site_name': this.post.site_name,
                         'site_url': this.post.site_url,
                         'check_type': this.post.check_type

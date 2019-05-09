@@ -172,7 +172,7 @@
                 if (typeof page === 'undefined') {
                     page = 1;
                 }
-                this.$http.get('http://monitor.test/api/websites?page='+ page).then((response) => {
+                this.$http.get('/api/websites?page='+ page).then((response) => {
                     this.posts = response.data.data;
                     this.laravelData = response.data;
                     this.pagenumber = page;
@@ -183,7 +183,7 @@
 });
             },
 editPost(postid) {
-                this.$http.get('http://monitor.test/api/websites/'+ postid).
+                this.$http.get('/api/websites/'+ postid).
                     then((data) => {
                         this.post.site_name = data.data.data.site_name;
                         this.post.site_url = data.data.data.site_url;
@@ -192,7 +192,7 @@ editPost(postid) {
                     });
             },
             updatePost() {
-                   this.$http.put('http://monitor.test/api/websites/'+this.id,{
+                   this.$http.put('/api/websites/'+this.id,{
                         'uri': this.post.site_url,
                         'site_name': this.post.site_name,
                         'site_url': this.post.site_url,
@@ -219,7 +219,7 @@ editPost(postid) {
                     this.id = postid;
             },
             deletePost() {
-                   this.$http.delete('http://monitor.test/api/websites/'+this.id).
+                   this.$http.delete('/api/websites/'+this.id).
                     then((data) => {
                         this.succmsg = false;;
                         var self = this;
