@@ -68,7 +68,6 @@ class DownTimeWebsitesChecker extends Command
                     
                 }else{
 
-
                     $notifications->each(function($item){
                         if($item->data['status'] !== "down"){
  
@@ -85,6 +84,7 @@ class DownTimeWebsitesChecker extends Command
                             }
 
                         }
+
                     });
 
                 }

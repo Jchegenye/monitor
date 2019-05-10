@@ -25,16 +25,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('monitoring:initialize-websites')
-            ->everyMinute()
-            ->runInBackground()
-            ->timezone('Africa/Nairobi');
+        if (app()->environment('production')) {
+            $schedule->command('monitoring:initialize-websites')
+                ->everyMinute()
+                ->runInBackground()
+                ->timezone('Africa/Nairobi');
 
-        $schedule->command('monitoring:down-websites')
-            ->everyMinute()
-            ->runInBackground()
-            ->timezone('Africa/Nairobi');
-            
+            $schedule->command('monitoring:down-websites')
+                ->everyMinute()
+                ->runInBackground()
+                ->timezone('Africa/Nairobi');
+        }
             
         // $schedule->command('inspire')
         //          ->hourly();

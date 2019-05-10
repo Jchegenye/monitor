@@ -36,7 +36,11 @@ class DownTimeNotifier extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'mail', 'slack'];
+        if (app()->environment('production')) {
+            return ['database', 'mail', 'slack'];
+        }else{
+            return ['database', 'mail'];
+        }
     }
 
     /**
