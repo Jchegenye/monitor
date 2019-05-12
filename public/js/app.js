@@ -275,11 +275,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       post: {
         "uri": '',
+        "success": '',
+        "status": '',
+        "message": '',
         "site_name": '',
         "site_url": '',
         "check_type": ''
@@ -303,7 +359,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$http.get('/api/websites?page=' + page).then(function (response) {
         _this.posts = response.data.data;
         _this.laravelData = response.data;
-        _this.pagenumber = page; //console.log(this.laravelData.data);
+        _this.pagenumber = page;
+        console.log(_this.laravelData);
       });
     },
     editPost: function editPost(postid) {
@@ -313,6 +370,9 @@ __webpack_require__.r(__webpack_exports__);
         _this2.post.site_name = data.data.data.site_name;
         _this2.post.site_url = data.data.data.site_url;
         _this2.post.check_type = data.data.data.check_type;
+        _this2.post.success = data.data.data.success;
+        _this2.post.status = data.data.data.status;
+        _this2.post.message = data.data.data.message;
         _this2.id = postid;
       });
     },
@@ -323,13 +383,19 @@ __webpack_require__.r(__webpack_exports__);
         'uri': this.post.site_url,
         'site_name': this.post.site_name,
         'site_url': this.post.site_url,
-        'check_type': this.post.check_type
+        'check_type': this.post.check_type,
+        'success': this.post.success,
+        'status': this.post.status,
+        'message': this.post.message
       }).then(function (data) {
         _this3.succmsg = false; //console.log(data);
 
         _this3.post.site_name = '';
         _this3.post.site_url = '';
         _this3.post.check_type = '';
+        _this3.post.success = '';
+        _this3.post.status = '';
+        _this3.post.message = '';
         var self = _this3;
         setTimeout(function () {
           self.succmsg = true;
@@ -1976,10 +2042,11 @@ var render = function() {
           [
             _vm._m(5),
             _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.laravelData.data, function(post) {
-                return _c("tr", { key: post.id }, [
+            _vm._l(_vm.laravelData.data, function(post) {
+              return _c("tbody", { key: post.id }, [
+                _c("tr", [
+                  _vm._m(6, true),
+                  _vm._v(" "),
                   _c("td", { attrs: { scope: "row" } }, [
                     _vm._v(_vm._s(post.site_name))
                   ]),
@@ -1992,70 +2059,133 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("td", [
-                    post.status === 0
-                      ? _c("div", { staticClass: "btn btn-danger" }, [
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td", { attrs: { scope: "row" } }, [
+                    post.success === false
+                      ? _c("div", { staticClass: "badge badge-danger" }, [
                           _vm._v(
                             "\n                                Down\n                            "
                           )
                         ])
-                      : post.status === 200
-                      ? _c("div", { staticClass: "btn btn-success" }, [
+                      : post.success === true
+                      ? _c("div", { staticClass: "badge badge-success" }, [
                           _vm._v(
                             "\n                                Up\n                            "
                           )
                         ])
-                      : _c("div", { staticClass: "btn btn-warning" }, [
+                      : _c("div", { staticClass: "badge badge-warning" }, [
                           _vm._v(
                             "\n                                Unknown\n                            "
                           )
                         ])
                   ]),
                   _vm._v(" "),
-                  _c("td", [
+                  _c("td", { attrs: { scope: "row" } }, [
+                    _vm._m(7, true),
+                    _vm._v(" "),
                     _c(
-                      "a",
-                      {
-                        attrs: {
-                          href: "#",
-                          "data-target": "#exampleModal",
-                          "data-toggle": "modal",
-                          site_url: post.site_url
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.editPost(post.id)
-                          }
-                        }
-                      },
-                      [_vm._v("Edit")]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "a",
-                      {
-                        attrs: {
-                          href: "#",
-                          "data-target": "#exampleModal2",
-                          "data-toggle": "modal",
-                          id: _vm.id
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteId(post.id)
-                          }
-                        }
-                      },
-                      [_vm._v("Delete")]
+                      "div",
+                      { staticClass: "dropdown-menu dropdown-menu-right" },
+                      [
+                        _vm._m(8, true),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "dropdown-divider" }),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: {
+                              href: "#",
+                              "data-target": "#exampleModal",
+                              "data-toggle": "modal",
+                              site_url: post.site_url
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.editPost(post.id)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "far fa-edit" }),
+                            _vm._v(
+                              " Edit\n                                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: {
+                              href: "#",
+                              "data-target": "#exampleModal2",
+                              "data-toggle": "modal",
+                              id: _vm.id
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteId(post.id)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "far fa-trash-alt" }),
+                            _vm._v(
+                              " Delete\n                                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "dropdown-divider" })
+                      ]
                     )
                   ])
+                ]),
+                _vm._v(" "),
+                _c("tr", { staticClass: "explore-more-td panel" }, [
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td", { attrs: { colspan: "6" } }, [
+                    _c("table", { staticClass: "table inner-table" }, [
+                      _c("tr", [
+                        _vm._m(9, true),
+                        _c(
+                          "td",
+                          { staticClass: "text-left", attrs: { colspan: "6" } },
+                          [_vm._v(_vm._s(post.message))]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _vm._m(10, true),
+                        _c(
+                          "td",
+                          { staticClass: "text-left", attrs: { colspan: "6" } },
+                          [_vm._v(_vm._s(post.status))]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _vm._m(11, true),
+                        _c(
+                          "td",
+                          { staticClass: "text-left", attrs: { colspan: "6" } },
+                          [_vm._v(_vm._s(post.transfer_time))]
+                        )
+                      ])
+                    ])
+                  ])
                 ])
-              }),
-              0
-            )
-          ]
+              ])
+            })
+          ],
+          2
         )
       ])
     ])
@@ -2161,15 +2291,99 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", { attrs: { scope: "col" } }),
+        _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Site Name")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("URL")]),
         _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Downtime")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Uptime")]),
+        _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Status")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col", colspan: "2" } }, [_vm._v("Action")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "td",
+      {
+        staticClass: "caret-td accordion",
+        attrs: { scope: "row", title: "Explore more ..." }
+      },
+      [_c("i", { staticClass: "fa fa-caret-right" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "dropdown-ellipsed d-flex btn btn-primary",
+        attrs: {
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [_c("i", { staticClass: "fas fa-ellipsis-h" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "d-flex align-items-center" }, [
+      _c("div", { staticClass: "d-flex mr-auto" }, [
+        _c(
+          "button",
+          { staticClass: "dropdown-item d-flex", attrs: { type: "button" } },
+          [_c("b", [_vm._v("Actions")])]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "d-flex ml-auto mr-4" }, [
+        _c("i", { staticClass: "fas fa-info-circle" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "td",
+      { staticClass: "text-left", staticStyle: { width: "15%" } },
+      [_c("b", [_vm._v("Possible Problem:")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "td",
+      { staticClass: "text-left", staticStyle: { width: "15%" } },
+      [_c("b", [_vm._v("Error Code:")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "td",
+      { staticClass: "text-left", staticStyle: { width: "15%" } },
+      [_c("b", [_vm._v("Transfer Time:")])]
+    )
   }
 ]
 render._withStripped = true

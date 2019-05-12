@@ -8,6 +8,7 @@ use Monitor\Http\Controllers\Controller;
 use Monitor\Http\Resources\Post as PostResource;
 use Monitor\Http\Resources\PostCollection;
 use Monitor\Model\WebsitesMonitor;
+use Monitor\Model\Notifications;
 
 class WebsitesDataController extends Controller
 {
@@ -18,7 +19,21 @@ class WebsitesDataController extends Controller
      */
     public function index()
     {
-        return new PostCollection(WebsitesMonitor::paginate(0));
+
+        $data = array(
+            new PostCollection(WebsitesMonitor::all()),
+            new PostCollection(Notifications::all())
+        );
+
+        //dd($data);
+        
+        // return $data[0];
+        // return $data[1];
+
+        //return $data;
+
+        return new PostCollection(WebsitesMonitor::all());
+
     }
 
     /**

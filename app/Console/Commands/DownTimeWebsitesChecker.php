@@ -48,7 +48,7 @@ class DownTimeWebsitesChecker extends Command
     {
         
         $users = User::where('profile_status', (int)1)->select('email','name')->get();
-        $websites = WebsitesMonitor::where('success', false)->whereNull('mail_status')->select('uri','site_info','updated_at')->get();
+        $websites = WebsitesMonitor::where('success', false)->select('uri','site_info','updated_at')->get();
         $notifications = Notifications::where('status',"=", 'down')->get();
         
         foreach ((object)$websites as $key_1 => $details)
@@ -76,9 +76,7 @@ class DownTimeWebsitesChecker extends Command
                                 foreach ($users as $key => $user) {
                                     
                                     Notification::send($user, new DownTimeNotifier($details,$user));
-                
-                                    //update/insert mail_status value to "mailed" and insertOrUpdate "downtime" using "updated_at"
-                
+                                    
                                 }
         
                             }

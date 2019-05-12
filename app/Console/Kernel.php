@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\InitializeMonitoringWebsites::class,
-        Commands\DownTimeWebsitesChecker::class
+        Commands\DownTimeWebsitesChecker::class,
+        Commands\UpTimeWebsitesChecker::class
     ];
 
     /**
@@ -25,7 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        if (app()->environment('production')) {
+        //if (!app()->environment('production')) {
             $schedule->command('monitoring:initialize-websites')
                 ->everyMinute()
                 ->runInBackground()
@@ -34,8 +35,15 @@ class Kernel extends ConsoleKernel
             $schedule->command('monitoring:down-websites')
                 ->everyMinute()
                 ->runInBackground()
-                ->timezone('Africa/Nairobi');
-        }
+                ->timezone('Africa/Nairobi')
+                ->withoutOverlapping(1);
+
+            $schedule->command('monitoring:up-websites')
+                ->everyMinute()
+                ->runInBackground()
+                ->timezone('Africa/Nairobi')
+                ->withoutOverlapping(2);
+        //}
             
         // $schedule->command('inspire')
         //          ->hourly();

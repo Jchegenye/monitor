@@ -16,4 +16,10 @@ class Notifications extends Eloquent
      * @var string
      */
     protected $collection = "notifications";
+
+    public function items()
+    {
+        return $this->hasMany('Monitor\Model\WebsitesMonitor');
+    }
+
 }

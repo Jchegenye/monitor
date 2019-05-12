@@ -34,9 +34,9 @@ class WebsitesMonitor extends Eloquent
     return $this->belongsTo(\Monitor\User::class);
     }
 
-    public function getCreatedDateAttribute()
+    public function items()
     {
-        return $this->created_at->diffForHumans();
+        return $this->hasMany('Monitor\Model\Notifications');
     }
 
 }

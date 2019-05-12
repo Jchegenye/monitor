@@ -102,34 +102,87 @@
                 <table class="table table-striped" v-bind:pagenumber = "pagenumber">
                     <thead>
                         <tr>
+                            <th scope="col"> </th>
                             <th scope="col">Site Name</th>
                             <th scope="col">URL</th>
+                            <th scope="col">Downtime</th>
+                            <th scope="col">Uptime</th>
                             <th scope="col">Status</th>
-                            <th scope="col" colspan="2">Action</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr v-for="post in laravelData.data" :key="post.id">
+                    <tbody v-for="post in laravelData.data" :key="post.id">
+                        <tr >
+
+                            <td scope="row" title="Explore more ..." class="caret-td accordion">
+                                <i class="fa fa-caret-right"></i>
+                            </td>
                             <td scope="row">{{ post.site_name }}</td>
                             <!-- <td>{{ post.site_url.slice(0,50) + "....." }}</td> -->
                             <td><a :href="post.site_url" target="_blunk">{{ post.site_url }}</a></td>
-                            <td>
-                                <!-- {{post.success}} -->
+                            <td></td>
+                            <td></td>
+                            <td scope="row">
                                 
-                                <div v-if="post.status === 0" class="btn btn-danger">
+                                <div v-if="post.success === false" class="badge badge-danger">
                                     Down
                                 </div>
-                                <div v-else-if="post.status === 200" class="btn btn-success">
+                                <div v-else-if="post.success === true" class="badge badge-success">
                                     Up
                                 </div>
-                                <div v-else class="btn btn-warning">
+                                <div v-else class="badge badge-warning">
                                     Unknown
                                 </div>
                                 
                             </td>
-                            <td><a href="#" v-on:click="editPost(post.id)" data-target="#exampleModal"  data-toggle="modal" v-bind:site_url="post.site_url">Edit</a></td>
-                            <td><a href="#" data-target="#exampleModal2" v-on:click="deleteId(post.id)"  data-toggle="modal" v-bind:id="id"  >Delete</a></td>
+                            <td scope="row">
+                                <div class="dropdown-ellipsed d-flex btn btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </div>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="d-flex align-items-center">
+                                        <div class="d-flex mr-auto">
+                                            <button class="dropdown-item d-flex" type="button"><b>Actions</b></button>
+                                        </div>
+                                        <div class="d-flex ml-auto mr-4">
+                                            <i class="fas fa-info-circle"></i>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-divider"></div>
+                                        <a href="#" class="dropdown-item" v-on:click="editPost(post.id)" data-target="#exampleModal"  data-toggle="modal" v-bind:site_url="post.site_url">
+                                            <i class="far fa-edit"></i> Edit
+                                        </a>
+                                        <a href="#"  class="dropdown-item" data-target="#exampleModal2" v-on:click="deleteId(post.id)"  data-toggle="modal" v-bind:id="id"  >
+                                            <i class="far fa-trash-alt"></i> Delete
+                                        </a>
+                                    <div class="dropdown-divider"></div>
+                                </div>
+                            </td>
                         </tr>
+
+                        <tr class="explore-more-td panel">
+                            <td></td>
+                            <td colspan="6">
+                                <table class="table inner-table">
+                                    <tr>
+                                        <td class="text-left" style="width:15%;">
+                                            <b>Possible Problem:</b>
+                                        </td><td colspan="6" class="text-left">{{ post.message }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="width:15%;">
+                                            <b>Error Code:</b>
+                                        </td><td colspan="6" class="text-left">{{ post.status }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="width:15%;">
+                                            <b>Transfer Time:</b>
+                                        </td><td colspan="6" class="text-left">{{ post.transfer_time }}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
                     </tbody>
                 </table>
                 <!-- <pagination :data="laravelData" :limit="2" @pagination-change-page="postLists">
@@ -154,6 +207,9 @@
             return {
                 post: {
                     "uri": '',
+                    "success": '',
+                    "status": '',
+                    "message": '',
                     "site_name": '',
                     "site_url": '',
                     "check_type": '',
@@ -177,7 +233,7 @@
                     this.laravelData = response.data;
                     this.pagenumber = page;
 
-                    //console.log(this.laravelData.data);
+                    console.log(this.laravelData);
 
                     
 });
@@ -188,6 +244,9 @@ editPost(postid) {
                         this.post.site_name = data.data.data.site_name;
                         this.post.site_url = data.data.data.site_url;
                         this.post.check_type = data.data.data.check_type;
+                        this.post.success= data.data.data.success;
+                        this.post.status= data.data.data.status;
+                        this.post.message= data.data.data.message;
                         this.id = postid;
                     });
             },
@@ -196,7 +255,10 @@ editPost(postid) {
                         'uri': this.post.site_url,
                         'site_name': this.post.site_name,
                         'site_url': this.post.site_url,
-                        'check_type': this.post.check_type
+                        'check_type': this.post.check_type,
+                        'success': this.post.success,
+                        'status': this.post.status,
+                        'message': this.post.message,
                     }).
                     then((data) => {
                         this.succmsg = false;
@@ -204,6 +266,9 @@ editPost(postid) {
                         this.post.site_name = '';
                         this.post.site_url = '';
                         this.post.check_type = '';
+                        this.post.success = '';
+                        this.post.status  = '';
+                        this.post.message  = '';
                         var self = this;
                         setTimeout(function(){
                             self.succmsg = true;
