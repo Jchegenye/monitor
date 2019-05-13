@@ -51,14 +51,14 @@ class UpTimeNotifier extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->subject(strtoupper($this->details->site_info['site_name'])." IS UP | WEBSITE STATUS")
-                    ->markdown('emails.monitoring.websites.uptime', [
-                        'details' => $this->details, 
-                        'user' => $this->user, 
-                        'notify' => $this->notify,
-                        'totalDuration' => $this->totalDuration
-                    ]);
+        // return (new MailMessage)
+        //             ->subject(strtoupper($this->details->site_info['site_name'])." IS UP | WEBSITE STATUS")
+        //             ->markdown('emails.monitoring.websites.uptime', [
+        //                 'details' => $this->details, 
+        //                 'user' => $this->user, 
+        //                 'notify' => $this->notify,
+        //                 'totalDuration' => $this->totalDuration
+        //             ]);
     }
 
     /**
@@ -69,10 +69,10 @@ class UpTimeNotifier extends Notification
      */
     public function toSlack($notifiable)
     {
-        return (new SlackMessage)
-            ->from(CommonHelper::custom_app_name().' | '.$this->details->site_info['site_name'])
-            ->image('https://laravel.com/favicon.png')
-            ->content('Good news! '.strtoupper($this->details->site_info['site_name']).' is UP again at '.$this->details->updated_at.' Downtime took '.$this->totalDuration.'. '.$this->details->site_info['site_url']);
+        // return (new SlackMessage)
+        //     ->from(CommonHelper::custom_app_name().' | '.$this->details->site_info['site_name'])
+        //     ->image('https://laravel.com/favicon.png')
+        //     ->content('Good news! '.strtoupper($this->details->site_info['site_name']).' is UP again at '.$this->details->updated_at.' Downtime took '.$this->totalDuration.'. '.$this->details->site_info['site_url']);
     }
 
 }
